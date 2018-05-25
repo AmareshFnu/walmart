@@ -15,10 +15,10 @@ public class JerseyClient {
 
 			Properties prop = new Properties();
 			ClassLoader loader = Thread.currentThread().getContextClassLoader();
-			InputStream stream = loader.getResourceAsStream("resources.properties");
+			InputStream stream = loader.getResourceAsStream("endPointURLs.properties");
 			prop.load(stream);
 
-			System.out.println("EndPoint URL:  "+prop.getProperty(endPointUrl));
+			System.out.println("EndPoint URL:  " + prop.getProperty(endPointUrl));
 
 			Client client = Client.create();
 
