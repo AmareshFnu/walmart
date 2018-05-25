@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
+import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.text.DateFormat;
@@ -14,6 +15,11 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import org.knowm.xchart.BitmapEncoder;
+import org.knowm.xchart.BitmapEncoder.BitmapFormat;
+import org.knowm.xchart.PieChartBuilder;
+import org.knowm.xchart.SwingWrapper;
+import org.knowm.xchart.style.Styler.ChartTheme;
 import org.testng.IReporter;
 import org.testng.IResultMap;
 import org.testng.ISuite;
@@ -28,7 +34,8 @@ public class CustomTestNGReporter implements IReporter {
 	// This is the customize emailabel report template file path.
 
 	private static String localDir = System.getProperty("user.dir");
-	private static final String emailableReportTemplateFile = localDir+ "/resources/customize-emailable-report-template.html";
+	private static final String emailableReportTemplateFile = localDir
+			+ "/resources/customize-emailable-report-template.html";
 
 	@Override
 	public void generateReport(List<XmlSuite> xmlSuites, List<ISuite> suites, String outputDirectory) {
@@ -127,6 +134,8 @@ public class CustomTestNGReporter implements IReporter {
 					totalTestFailed = testObj.getFailedTests().getAllMethods().size();
 
 					totalTestCount = totalTestPassed + totalTestSkipped + totalTestFailed;
+
+					displayPieChart(totalTestSkipped, totalTestPassed, totalTestFailed, totalTestCount);
 
 					/* Test name. */
 					retBuf.append("<td>");
@@ -398,6 +407,36 @@ public class CustomTestNGReporter implements IReporter {
 			}
 		}
 		return retStrBuf.toString();
+	}
+
+	private void displayPieChart(Number skipped, Number passed, Number failed, Number totaltestcases)
+			throws IOException {
+		// Create Chart
+		org.knowm.xchart.PieChart chart = new PieChartBuilder().width(800).height(600)
+				.title("Total Test Case Count: " + totaltestcases).theme(ChartTheme.Matlab).build();
+
+		chart.getToolTips().addData(5, 10, "Total test case count");
+
+		// Customize Chart
+		chart.getStyler().setLegendVisible(true);
+		// chart.getStyler().setAnnotationType(AnnotationType.);
+		chart.getStyler().setAnnotationDistance(1.15);
+		chart.getStyler().setPlotContentSize(.7);
+		chart.getStyler().setStartAngleInDegrees(90);
+
+		// Series
+		chart.addSeries("skipped", skipped);
+		chart.addSeries("passed", passed);
+		chart.addSeries("failed", failed);
+
+		// Show it
+		new SwingWrapper(chart).displayChart();
+
+		// Save it
+		BitmapEncoder.saveBitmap(chart, "./Sample_Chart", BitmapFormat.PNG);
+
+		// or save it in high-res
+		BitmapEncoder.saveBitmapWithDPI(chart, "./Sample_Chart_300_DPI", BitmapFormat.PNG, 300);
 	}
 
 }
