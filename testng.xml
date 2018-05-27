@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite name="Suite" parallel="false">
+<suite name="Sprint Regression Test Suite" parallel="false">
 
 	<listeners>
 		<listener class-name="com.walmart.listner.CustomTestNGReporter" />
@@ -19,4 +19,4 @@
 			<class name="com.walmart.test.SearchItems" />
 		</classes>
 	</test> <!-- Test -->
-</suite> <!-- Suite -->
+</suite> <!-- Suite -->      

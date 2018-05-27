@@ -34,7 +34,10 @@ public class CustomTestNGReporter implements IReporter {
 	// This is the customize emailabel report template file path.
 
 	private static String localDir = System.getProperty("user.dir");
-	private static final String emailableReportTemplateFile = localDir
+	private static final String customEmailableReportPiechartTemplate = localDir
+			+ "/resources/customize-emailable-report-piechart-template.html";
+
+	private static final String customEmailableReportTemplate = localDir
 			+ "/resources/customize-emailable-report-template.html";
 
 	@Override
@@ -42,7 +45,8 @@ public class CustomTestNGReporter implements IReporter {
 
 		try {
 			// Get content data in TestNG report template file.
-			String customReportTemplateStr = this.readEmailabelReportTemplate();
+			String customEmailableReportPiechartTemplateStr = this
+					.readEmailabelReportTemplate(customEmailableReportPiechartTemplate);
 
 			// Create custom report title.
 			String customReportTitle = this.getCustomReportTitle("Custom TestNG Report");
@@ -51,27 +55,47 @@ public class CustomTestNGReporter implements IReporter {
 			String customSuiteSummary = this.getTestSuiteSummary(suites);
 
 			// Create test methods summary data.
+
+			// Replace pichart image place holder with the actual location
+						customEmailableReportPiechartTemplateStr = customEmailableReportPiechartTemplateStr
+								.replaceAll("test suite name", customSuiteSummary+" "+"Results");
+			
+			
+			// Replace pichart image place holder with the actual location
+			customEmailableReportPiechartTemplateStr = customEmailableReportPiechartTemplateStr
+					.replaceAll("Sample_Chart_300_DPI.png", localDir + "/Sample_Chart_300_DPI.png");
+
+			// Replace detailed report link place holder with custom e-mailable
+			// report
+			customEmailableReportPiechartTemplateStr = customEmailableReportPiechartTemplateStr
+					.replaceAll("custom-emailable-report.html", outputDirectory + "/custom-emailable-report.html");
+
+			File piechart = new File(outputDirectory + "/custom-emailable-report-piechart.html");
+			FileWriter fw = new FileWriter(piechart);
+			fw.write(customEmailableReportPiechartTemplateStr);
+			fw.flush();
+			fw.close();
+
 			String customTestMethodSummary = this.getTestMehodSummary(suites);
 
-			// Replace report title place holder with custom title.
-			customReportTemplateStr = customReportTemplateStr.replaceAll("\\$TestNG_Custom_Report_Title\\$",
-					customReportTitle);
+			String customEmailableReportTemplateStr = this.readEmailabelReportTemplate(customEmailableReportTemplate);
 
 			// Replace test suite place holder with custom test suite summary.
-			customReportTemplateStr = customReportTemplateStr.replaceAll("\\$Test_Case_Summary\\$", customSuiteSummary);
+			customEmailableReportTemplateStr = customEmailableReportTemplateStr.replaceAll("test suite name",
+					customSuiteSummary+" "+"Results");
 
 			// Replace test methods place holder with custom test method
 			// summary.
-			customReportTemplateStr = customReportTemplateStr.replaceAll("\\$Test_Case_Detail\\$",
+			customEmailableReportTemplateStr = customEmailableReportTemplateStr.replaceAll("<h1>paste it here</h1>",
 					customTestMethodSummary);
 
 			// Write replaced test report content to
 			// custom-emailable-report.html.
 			File targetFile = new File(outputDirectory + "/custom-emailable-report.html");
-			FileWriter fw = new FileWriter(targetFile);
-			fw.write(customReportTemplateStr);
-			fw.flush();
-			fw.close();
+			FileWriter fw1 = new FileWriter(targetFile);
+			fw1.write(customEmailableReportTemplateStr);
+			fw1.flush();
+			fw1.close();
 
 		} catch (Exception ex) {
 			ex.printStackTrace();
@@ -79,12 +103,12 @@ public class CustomTestNGReporter implements IReporter {
 	}
 
 	/* Read template content. */
-	private String readEmailabelReportTemplate() {
+	private String readEmailabelReportTemplate(String filePath) {
 		StringBuffer retBuf = new StringBuffer();
 
 		try {
 
-			File file = new File(this.emailableReportTemplateFile);
+			File file = new File(filePath);
 			FileReader fr = new FileReader(file);
 			BufferedReader br = new BufferedReader(fr);
 
@@ -111,6 +135,8 @@ public class CustomTestNGReporter implements IReporter {
 	/* Build test suite summary data. */
 	private String getTestSuiteSummary(List<ISuite> suites) {
 		StringBuffer retBuf = new StringBuffer();
+		
+		String suiteName=null;
 
 		try {
 			int totalTestCount = 0;
@@ -119,7 +145,9 @@ public class CustomTestNGReporter implements IReporter {
 			int totalTestSkipped = 0;
 
 			for (ISuite tempSuite : suites) {
-				retBuf.append("<tr><td colspan=11><center><b>" + tempSuite.getName() + "</b></center></td></tr>");
+//				retBuf.append("<tr><td colspan=11><center><b>" + tempSuite.getName() + "</b></center></td></tr>");
+				
+				suiteName=tempSuite.getName();
 
 				Map<String, ISuiteResult> testResults = tempSuite.getResults();
 
@@ -208,7 +236,8 @@ public class CustomTestNGReporter implements IReporter {
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		} finally {
-			return retBuf.toString();
+//			return retBuf.toString();
+			return suiteName;
 		}
 	}
 
@@ -246,7 +275,7 @@ public class CustomTestNGReporter implements IReporter {
 
 		try {
 			for (ISuite tempSuite : suites) {
-				retBuf.append("<tr><td colspan=7><center><b>" + tempSuite.getName() + "</b></center></td></tr>");
+//				retBuf.append("<tr><td colspan=7><center><b>" + tempSuite.getName() + "</b></center></td></tr>");
 
 				Map<String, ISuiteResult> testResults = tempSuite.getResults();
 
@@ -290,7 +319,7 @@ public class CustomTestNGReporter implements IReporter {
 
 		if (skippedResult) {
 			resultTitle += " - Skipped ";
-			color = "yellow";
+			color = "blue";
 		} else {
 			if (!passedReault) {
 				resultTitle += " - Failed ";
@@ -301,10 +330,11 @@ public class CustomTestNGReporter implements IReporter {
 			}
 		}
 
-		retStrBuf.append(
-				"<tr bgcolor=" + color + "><td colspan=7><center><b>" + resultTitle + "</b></center></td></tr>");
+//		retStrBuf.append(
+//				"<tr bgcolor=" + color + "><td colspan=12><center><b>" + resultTitle + "</b></center></td></tr>");
 
 		Set<ITestResult> testResultSet = testResultMap.getAllResults();
+		int slno=1;
 
 		for (ITestResult testResult : testResultSet) {
 			String testClassName = "";
@@ -356,41 +386,113 @@ public class CustomTestNGReporter implements IReporter {
 			retStrBuf.append("<tr bgcolor=" + color + ">");
 
 			/* Add test class name. */
+	
 			retStrBuf.append("<td>");
+			retStrBuf.append("<h4>");
+			retStrBuf.append(slno);
+			retStrBuf.append("</h4>");
+			retStrBuf.append("</td>");
+			
+			retStrBuf.append("<td>");
+			retStrBuf.append("<h4>");
 			retStrBuf.append(testClassName);
+			retStrBuf.append("</h4>");
 			retStrBuf.append("</td>");
 
 			/* Add test method name. */
 			retStrBuf.append("<td>");
+			retStrBuf.append("<h4>");
 			retStrBuf.append(testMethodName);
+			retStrBuf.append("</h4>");
 			retStrBuf.append("</td>");
 
+			/* carrier Name */
+			retStrBuf.append("<td>");
+			retStrBuf.append("<h4>");
+			retStrBuf.append("Sprint");
+			retStrBuf.append("</h4>");
+			retStrBuf.append("</td>");
+			
 			/* Add start time. */
 			retStrBuf.append("<td>");
+			retStrBuf.append("<h4>");
 			retStrBuf.append(startDateStr);
+			retStrBuf.append("</h4>");
 			retStrBuf.append("</td>");
 
 			/* Add execution time. */
 			retStrBuf.append("<td>");
+			retStrBuf.append("<h4>");
 			retStrBuf.append(executeTimeStr);
+			retStrBuf.append("</h4>");
+			retStrBuf.append("</td>");
+			
+			
+			retStrBuf.append("<td>");
+			retStrBuf.append("<h4>");
+			retStrBuf.append("CTN:8733337222");
+			retStrBuf.append("<br>");
+			retStrBuf.append("SSN:6483");
+			retStrBuf.append("<br>");
+			retStrBuf.append("ZipCode:95051");
+			retStrBuf.append("<br>");
+			retStrBuf.append("</h4>");
+			retStrBuf.append("</td>");
+			
+			
+			retStrBuf.append("<td>");
+			retStrBuf.append("<a href=https://www.google.com/>");
+			retStrBuf.append("<h4>");
+			retStrBuf.append("20182705R00283993");
+			retStrBuf.append("</h4>");
+			retStrBuf.append("</a>");
+			retStrBuf.append("</td>");
+			
+			retStrBuf.append("<td>");
+			retStrBuf.append("<a href=https://www.google.com/>");
+			retStrBuf.append("<h4>");
+			retStrBuf.append("BU20783667");
+			retStrBuf.append("</h4>");
+			retStrBuf.append("</a>");
+			retStrBuf.append("</td>");		
+			
+			retStrBuf.append("<td>");
+			retStrBuf.append("<a href=https://www.google.com/>");
+			retStrBuf.append("<h4>");
+			retStrBuf.append("UT");
+			retStrBuf.append("</h4>");
+			retStrBuf.append("</a>");
 			retStrBuf.append("</td>");
 
-			/* Add parameter. */
+			
 			retStrBuf.append("<td>");
-			retStrBuf.append(paramStr);
+			retStrBuf.append("<h4>");
+			retStrBuf.append("Completed/None");
+			retStrBuf.append("</h4>");
+			retStrBuf.append("</td>");
+			
+			retStrBuf.append("<td>");
+			retStrBuf.append("<h4>");
+			retStrBuf.append(exceptionMessage);
+			retStrBuf.append("</h4>");
 			retStrBuf.append("</td>");
 
-			/* Add reporter message. */
-			retStrBuf.append("<td>");
-			retStrBuf.append(reporterMessage);
-			retStrBuf.append("</td>");
+//			/* Add parameter. */
+//			retStrBuf.append("<td>");
+//			retStrBuf.append(paramStr);
+//			retStrBuf.append("</td>");
+//
+//			/* Add reporter message. */
+//			retStrBuf.append("<td>");
+//			retStrBuf.append(reporterMessage);
+//			retStrBuf.append("</td>");
 
 			/* Add exception message. */
-			retStrBuf.append("<td>");
-			retStrBuf.append(exceptionMessage);
-			retStrBuf.append("</td>");
+			
 
 			retStrBuf.append("</tr>");
+			
+			slno++;
 
 		}
 
@@ -413,9 +515,9 @@ public class CustomTestNGReporter implements IReporter {
 			throws IOException {
 		// Create Chart
 		org.knowm.xchart.PieChart chart = new PieChartBuilder().width(800).height(600)
-				.title("Total Test Case Count: " + totaltestcases).theme(ChartTheme.Matlab).build();
+				.title("Total TestCases: " + totaltestcases).theme(ChartTheme.Matlab).build();
 
-		chart.getToolTips().addData(5, 10, "Total test case count");
+		chart.getToolTips().addData(3, 10, "Total test case");
 
 		// Customize Chart
 		chart.getStyler().setLegendVisible(true);
@@ -430,7 +532,7 @@ public class CustomTestNGReporter implements IReporter {
 		chart.addSeries("failed", failed);
 
 		// Show it
-		new SwingWrapper(chart).displayChart();
+//		 new SwingWrapper(chart).displayChart();
 
 		// Save it
 		BitmapEncoder.saveBitmap(chart, "./Sample_Chart", BitmapFormat.PNG);

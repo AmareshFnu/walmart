@@ -1,5 +1,6 @@
 package com.walmart.client;
 
+import java.io.FileReader;
 import java.io.InputStream;
 import java.util.Properties;
 
@@ -14,9 +15,9 @@ public class JerseyClient {
 		try {
 
 			Properties prop = new Properties();
-			ClassLoader loader = Thread.currentThread().getContextClassLoader();
-			InputStream stream = loader.getResourceAsStream("endPointURLs.properties");
-			prop.load(stream);
+			FileReader reader = new FileReader("endPointURLs.properties");
+//			InputStream stream = loader.getResourceAsStream("");
+			prop.load(reader);
 
 			System.out.println("EndPoint URL:  " + prop.getProperty(endPointUrl));
 
