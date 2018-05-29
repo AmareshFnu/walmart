@@ -472,7 +472,9 @@ public class CustomTestNGReporter implements IReporter {
 
 			retStrBuf.append("<td>");
 			retStrBuf.append("<h4>");
-			retStrBuf.append(exceptionMessage);
+			if(!exceptionMessage.toString().isEmpty()){
+			retStrBuf.append(exceptionMessage.trim().substring(0, 100));
+			}
 			retStrBuf.append("</h4>");
 			retStrBuf.append("</td>");
 
