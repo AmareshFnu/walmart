@@ -57,10 +57,9 @@ public class CustomTestNGReporter implements IReporter {
 			// Create test methods summary data.
 
 			// Replace pichart image place holder with the actual location
-						customEmailableReportPiechartTemplateStr = customEmailableReportPiechartTemplateStr
-								.replaceAll("test suite name", customSuiteSummary+" "+"Results");
-			
-			
+			customEmailableReportPiechartTemplateStr = customEmailableReportPiechartTemplateStr
+					.replaceAll("test suite name", customSuiteSummary + " " + "Results");
+
 			// Replace pichart image place holder with the actual location
 			customEmailableReportPiechartTemplateStr = customEmailableReportPiechartTemplateStr
 					.replaceAll("Sample_Chart_300_DPI.png", localDir + "/Sample_Chart_300_DPI.png");
@@ -82,7 +81,7 @@ public class CustomTestNGReporter implements IReporter {
 
 			// Replace test suite place holder with custom test suite summary.
 			customEmailableReportTemplateStr = customEmailableReportTemplateStr.replaceAll("test suite name",
-					customSuiteSummary+" "+"Results");
+					customSuiteSummary + " " + "Results");
 
 			// Replace test methods place holder with custom test method
 			// summary.
@@ -135,8 +134,8 @@ public class CustomTestNGReporter implements IReporter {
 	/* Build test suite summary data. */
 	private String getTestSuiteSummary(List<ISuite> suites) {
 		StringBuffer retBuf = new StringBuffer();
-		
-		String suiteName=null;
+
+		String suiteName = null;
 
 		try {
 			int totalTestCount = 0;
@@ -145,9 +144,10 @@ public class CustomTestNGReporter implements IReporter {
 			int totalTestSkipped = 0;
 
 			for (ISuite tempSuite : suites) {
-//				retBuf.append("<tr><td colspan=11><center><b>" + tempSuite.getName() + "</b></center></td></tr>");
-				
-				suiteName=tempSuite.getName();
+				// retBuf.append("<tr><td colspan=11><center><b>" +
+				// tempSuite.getName() + "</b></center></td></tr>");
+
+				suiteName = tempSuite.getName();
 
 				Map<String, ISuiteResult> testResults = tempSuite.getResults();
 
@@ -236,7 +236,7 @@ public class CustomTestNGReporter implements IReporter {
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		} finally {
-//			return retBuf.toString();
+			// return retBuf.toString();
 			return suiteName;
 		}
 	}
@@ -275,7 +275,8 @@ public class CustomTestNGReporter implements IReporter {
 
 		try {
 			for (ISuite tempSuite : suites) {
-//				retBuf.append("<tr><td colspan=7><center><b>" + tempSuite.getName() + "</b></center></td></tr>");
+				// retBuf.append("<tr><td colspan=7><center><b>" +
+				// tempSuite.getName() + "</b></center></td></tr>");
 
 				Map<String, ISuiteResult> testResults = tempSuite.getResults();
 
@@ -330,11 +331,12 @@ public class CustomTestNGReporter implements IReporter {
 			}
 		}
 
-//		retStrBuf.append(
-//				"<tr bgcolor=" + color + "><td colspan=12><center><b>" + resultTitle + "</b></center></td></tr>");
+		// retStrBuf.append(
+		// "<tr bgcolor=" + color + "><td colspan=12><center><b>" + resultTitle
+		// + "</b></center></td></tr>");
 
 		Set<ITestResult> testResultSet = testResultMap.getAllResults();
-		int slno=1;
+		int slno = 1;
 
 		for (ITestResult testResult : testResultSet) {
 			String testClassName = "";
@@ -386,13 +388,13 @@ public class CustomTestNGReporter implements IReporter {
 			retStrBuf.append("<tr bgcolor=" + color + ">");
 
 			/* Add test class name. */
-	
+
 			retStrBuf.append("<td>");
 			retStrBuf.append("<h4>");
 			retStrBuf.append(slno);
 			retStrBuf.append("</h4>");
 			retStrBuf.append("</td>");
-			
+
 			retStrBuf.append("<td>");
 			retStrBuf.append("<h4>");
 			retStrBuf.append(testClassName);
@@ -412,7 +414,7 @@ public class CustomTestNGReporter implements IReporter {
 			retStrBuf.append("Sprint");
 			retStrBuf.append("</h4>");
 			retStrBuf.append("</td>");
-			
+
 			/* Add start time. */
 			retStrBuf.append("<td>");
 			retStrBuf.append("<h4>");
@@ -426,8 +428,7 @@ public class CustomTestNGReporter implements IReporter {
 			retStrBuf.append(executeTimeStr);
 			retStrBuf.append("</h4>");
 			retStrBuf.append("</td>");
-			
-			
+
 			retStrBuf.append("<td>");
 			retStrBuf.append("<h4>");
 			retStrBuf.append("CTN:8733337222");
@@ -438,8 +439,7 @@ public class CustomTestNGReporter implements IReporter {
 			retStrBuf.append("<br>");
 			retStrBuf.append("</h4>");
 			retStrBuf.append("</td>");
-			
-			
+
 			retStrBuf.append("<td>");
 			retStrBuf.append("<a href=https://www.google.com/>");
 			retStrBuf.append("<h4>");
@@ -447,15 +447,15 @@ public class CustomTestNGReporter implements IReporter {
 			retStrBuf.append("</h4>");
 			retStrBuf.append("</a>");
 			retStrBuf.append("</td>");
-			
+
 			retStrBuf.append("<td>");
 			retStrBuf.append("<a href=https://www.google.com/>");
 			retStrBuf.append("<h4>");
 			retStrBuf.append("BU20783667");
 			retStrBuf.append("</h4>");
 			retStrBuf.append("</a>");
-			retStrBuf.append("</td>");		
-			
+			retStrBuf.append("</td>");
+
 			retStrBuf.append("<td>");
 			retStrBuf.append("<a href=https://www.google.com/>");
 			retStrBuf.append("<h4>");
@@ -464,34 +464,32 @@ public class CustomTestNGReporter implements IReporter {
 			retStrBuf.append("</a>");
 			retStrBuf.append("</td>");
 
-			
 			retStrBuf.append("<td>");
 			retStrBuf.append("<h4>");
 			retStrBuf.append("Completed/None");
 			retStrBuf.append("</h4>");
 			retStrBuf.append("</td>");
-			
+
 			retStrBuf.append("<td>");
 			retStrBuf.append("<h4>");
 			retStrBuf.append(exceptionMessage);
 			retStrBuf.append("</h4>");
 			retStrBuf.append("</td>");
 
-//			/* Add parameter. */
-//			retStrBuf.append("<td>");
-//			retStrBuf.append(paramStr);
-//			retStrBuf.append("</td>");
-//
-//			/* Add reporter message. */
-//			retStrBuf.append("<td>");
-//			retStrBuf.append(reporterMessage);
-//			retStrBuf.append("</td>");
+			// /* Add parameter. */
+			// retStrBuf.append("<td>");
+			// retStrBuf.append(paramStr);
+			// retStrBuf.append("</td>");
+			//
+			// /* Add reporter message. */
+			// retStrBuf.append("<td>");
+			// retStrBuf.append(reporterMessage);
+			// retStrBuf.append("</td>");
 
 			/* Add exception message. */
-			
 
 			retStrBuf.append("</tr>");
-			
+
 			slno++;
 
 		}
@@ -532,12 +530,13 @@ public class CustomTestNGReporter implements IReporter {
 		chart.addSeries("failed", failed);
 
 		// Show it
-//		 new SwingWrapper(chart).displayChart();
+		// new SwingWrapper(chart).displayChart();
 
 		// Save it
+		BitmapEncoder.saveBitmap(chart, "./target/surefire-reports/Sample_Chart", BitmapFormat.PNG);
 		BitmapEncoder.saveBitmap(chart, "./Sample_Chart", BitmapFormat.PNG);
-
 		// or save it in high-res
+		BitmapEncoder.saveBitmapWithDPI(chart, "./target/surefire-reports/Sample_Chart_300_DPI", BitmapFormat.PNG, 300);
 		BitmapEncoder.saveBitmapWithDPI(chart, "./Sample_Chart_300_DPI", BitmapFormat.PNG, 300);
 	}
 
