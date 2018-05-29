@@ -540,6 +540,14 @@ public class CustomTestNGReporter implements IReporter {
 		// or save it in high-res
 		BitmapEncoder.saveBitmapWithDPI(chart, "./target/surefire-reports/Sample_Chart_300_DPI", BitmapFormat.PNG, 300);
 		BitmapEncoder.saveBitmapWithDPI(chart, "./Sample_Chart_300_DPI", BitmapFormat.PNG, 300);
+		
+	try {
+		Thread.sleep(20000);
+	} catch (InterruptedException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
+		
 	}
 
 }
