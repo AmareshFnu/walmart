@@ -9,7 +9,7 @@ import com.walmart.validation.ResponseValidator;
 
 public class CustomerReviews extends WalmartBaseTest {
 
-	@Test
+	@Test(enabled = false)
 	public void testCustomerReviews() {
 		responseString = JerseyClient.clientRequest(APIEndPointsEnum.CustomerReviewAPI.toString());
 

@@ -9,7 +9,7 @@ import com.walmart.validation.ResponseValidator;
 
 public class ValueOfTheDay extends WalmartBaseTest {
 
-	@Test
+	@Test(enabled = false)
 	public void testValueOfTheDay() {
 
 		responseString = JerseyClient.clientRequest(APIEndPointsEnum.VODAPI.toString());
