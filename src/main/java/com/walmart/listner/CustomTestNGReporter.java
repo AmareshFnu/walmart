@@ -542,7 +542,7 @@ public class CustomTestNGReporter implements IReporter {
 		BitmapEncoder.saveBitmapWithDPI(chart, "./Sample_Chart_300_DPI", BitmapFormat.PNG, 300);
 		
 	try {
-		Thread.sleep(20000);
+		Thread.sleep(200000);
 	} catch (InterruptedException e) {
 		// TODO Auto-generated catch block
 		e.printStackTrace();
