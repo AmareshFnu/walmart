@@ -27,8 +27,8 @@ public class SearchProduct {
 		result.setAttribute(DataColumn.carrierName.toString(), "Indicom");
 		result.setAttribute(DataColumn.testdata.toString(), testdata);
 		result.setAttribute(DataColumn.Executionenv.toString(), "Env-3");
-		result.setAttribute(DataColumn.sessionId.toString(), "S-7845511238743");
-		result.setAttribute(DataColumn.orderNumber.toString(), "O-254283");
+		result.setAttribute(DataColumn.sessionId.toString(), "SID-2017545558747");
+		result.setAttribute(DataColumn.orderNumber.toString(), "OID-7814");
 		result.setAttribute(DataColumn.orderStatus.toString(), "Success/ActivationPending");
 	}
 

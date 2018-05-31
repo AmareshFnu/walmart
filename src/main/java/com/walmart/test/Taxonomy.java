@@ -35,11 +35,11 @@ public class Taxonomy extends WalmartBaseTest {
 		// testResult.setAttribute("TestData", computedItems);
 		// testResult.setAttribute("ExecutionEnv", "UT");
 
-		result.setAttribute(DataColumn.carrierName.toString(), "Verizon");
+		result.setAttribute(DataColumn.carrierName.toString(), "Airtel");
 		result.setAttribute(DataColumn.testdata.toString(), testdata);
-		result.setAttribute(DataColumn.Executionenv.toString(), "IT");
-		result.setAttribute(DataColumn.sessionId.toString(), "20183005R001851234");
-		result.setAttribute(DataColumn.orderNumber.toString(), "BI84521453");
+		result.setAttribute(DataColumn.Executionenv.toString(), "Env-1");
+		result.setAttribute(DataColumn.sessionId.toString(), "SID-2017545558745");
+		result.setAttribute(DataColumn.orderNumber.toString(), "OID-7812");
 		result.setAttribute(DataColumn.orderStatus.toString(), "Completed/None");
 	}
 

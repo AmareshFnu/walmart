@@ -33,14 +33,12 @@ public class Pagination extends WalmartBaseTest {
 		// testResult.setAttribute("TestData", computedItems);
 		// testResult.setAttribute("ExecutionEnv", "UT");
 
-		result.setAttribute(DataColumn.carrierName.toString(), "Sprint");
+		result.setAttribute(DataColumn.carrierName.toString(), "Vodafone");
 		result.setAttribute(DataColumn.testdata.toString(), testdata);
-		result.setAttribute(DataColumn.Executionenv.toString(), "UT");
-		result.setAttribute(DataColumn.sessionId.toString(), "20183005R0018542");
-		result.setAttribute(DataColumn.orderNumber.toString(), "B185420022");
+		result.setAttribute(DataColumn.Executionenv.toString(), "Env-4");
+		result.setAttribute(DataColumn.sessionId.toString(), "SID-2017545558746");
+		result.setAttribute(DataColumn.orderNumber.toString(), "OID-7813");
 		result.setAttribute(DataColumn.orderStatus.toString(), "Completed/None");
-
-		// System.out.println(result.getAttribute("TestData"));
 
 	}
 }
