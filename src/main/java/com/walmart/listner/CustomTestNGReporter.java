@@ -411,7 +411,7 @@ public class CustomTestNGReporter implements IReporter {
 			/* carrier Name */
 			retStrBuf.append("<td>");
 			retStrBuf.append("<h4>");
-			retStrBuf.append("Sprint");
+			retStrBuf.append(testResult.getAttribute("carrierName"));
 			retStrBuf.append("</h4>");
 			retStrBuf.append("</td>");
 
@@ -429,59 +429,65 @@ public class CustomTestNGReporter implements IReporter {
 			retStrBuf.append("</h4>");
 			retStrBuf.append("</td>");
 
+			// retStrBuf.append("<td>");
+			// retStrBuf.append("<h4>");
+			// retStrBuf.append("CTN:8733337222");
+			// retStrBuf.append("<br>");
+			// retStrBuf.append("SSN:6483");
+			// retStrBuf.append("<br>");
+			// retStrBuf.append("ZipCode:95051");
+			// retStrBuf.append("<br>");
+			// retStrBuf.append("</h4>");
+			// retStrBuf.append("</td>");
+
 			retStrBuf.append("<td>");
 			retStrBuf.append("<h4>");
-			retStrBuf.append("CTN:8733337222");
-			retStrBuf.append("<br>");
-			retStrBuf.append("SSN:6483");
-			retStrBuf.append("<br>");
-			retStrBuf.append("ZipCode:95051");
-			retStrBuf.append("<br>");
+			retStrBuf.append(testResult.getAttribute("testdata"));
 			retStrBuf.append("</h4>");
+			retStrBuf.append("</td>");
+
+			retStrBuf.append("<td>");
+			// retStrBuf.append("<a href=https://www.google.com/>");
+			retStrBuf.append("<h4>");
+			retStrBuf.append(testResult.getAttribute("sessionId"));
+			retStrBuf.append("</h4>");
+			// retStrBuf.append("</a>");
+			retStrBuf.append("</td>");
+
+			retStrBuf.append("<td>");
+			// retStrBuf.append("<a href=https://www.google.com/>");
+			retStrBuf.append("<h4>");
+			retStrBuf.append(testResult.getAttribute("orderNumber"));
+			retStrBuf.append("</h4>");
+			// retStrBuf.append("</a>");
 			retStrBuf.append("</td>");
 
 			retStrBuf.append("<td>");
 			retStrBuf.append("<a href=https://www.google.com/>");
 			retStrBuf.append("<h4>");
-			retStrBuf.append("20182705R00283993");
-			retStrBuf.append("</h4>");
-			retStrBuf.append("</a>");
-			retStrBuf.append("</td>");
-
-			retStrBuf.append("<td>");
-			retStrBuf.append("<a href=https://www.google.com/>");
-			retStrBuf.append("<h4>");
-			retStrBuf.append("BU20783667");
-			retStrBuf.append("</h4>");
-			retStrBuf.append("</a>");
-			retStrBuf.append("</td>");
-
-			retStrBuf.append("<td>");
-			retStrBuf.append("<a href=https://www.google.com/>");
-			retStrBuf.append("<h4>");
-			retStrBuf.append("UT");
+			retStrBuf.append(testResult.getAttribute("Executionenv"));
 			retStrBuf.append("</h4>");
 			retStrBuf.append("</a>");
 			retStrBuf.append("</td>");
 
 			retStrBuf.append("<td>");
 			retStrBuf.append("<h4>");
-			retStrBuf.append("Completed/None");
+			retStrBuf.append(testResult.getAttribute("orderStatus"));
 			retStrBuf.append("</h4>");
 			retStrBuf.append("</td>");
 
 			retStrBuf.append("<td>");
 			retStrBuf.append("<h4>");
-			if(!exceptionMessage.toString().isEmpty()){
-			retStrBuf.append(exceptionMessage.trim().substring(0, 100));
+			if (!exceptionMessage.toString().isEmpty()) {
+				retStrBuf.append(exceptionMessage.trim().substring(0, 100));
 			}
 			retStrBuf.append("</h4>");
 			retStrBuf.append("</td>");
 
-			// /* Add parameter. */
-			// retStrBuf.append("<td>");
-			// retStrBuf.append(paramStr);
-			// retStrBuf.append("</td>");
+			/* Add parameter. */
+			retStrBuf.append("<td>");
+			retStrBuf.append(paramStr);
+			retStrBuf.append("</td>");
 			//
 			// /* Add reporter message. */
 			// retStrBuf.append("<td>");
@@ -540,14 +546,7 @@ public class CustomTestNGReporter implements IReporter {
 		// or save it in high-res
 		BitmapEncoder.saveBitmapWithDPI(chart, "./target/surefire-reports/Sample_Chart_300_DPI", BitmapFormat.PNG, 300);
 		BitmapEncoder.saveBitmapWithDPI(chart, "./Sample_Chart_300_DPI", BitmapFormat.PNG, 300);
-		
-	try {
-		Thread.sleep(200000);
-	} catch (InterruptedException e) {
-		// TODO Auto-generated catch block
-		e.printStackTrace();
-	}
-		
+
 	}
 
 }
